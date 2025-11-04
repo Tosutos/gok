@@ -28,30 +28,27 @@
     }
   }
 
+  // Swap mapping as requested:
+  // - Left(원인) shows effect_* image/text
+  // - Right(결과) shows cause_* image/text
   async function drawCause() {
-    const idx = causeIndices[randInt(0, causeIndices.length - 1)];
-    const imgPath = `${IMG_DIR}/cause_${idx}.png`;
+    const idx = effectIndices[randInt(0, effectIndices.length - 1)];
+    const imgPath = `${IMG_DIR}/effect_${idx}.png`;
     els.causeImg.src = imgPath;
     els.causeImg.alt = `원인 ${idx}`;
-    const txt = await loadTextOrFallback(`${IMG_DIR}/cause_${idx}.txt`, `원인 ${idx}`);
+    const txt = await loadTextOrFallback(`${IMG_DIR}/effect_${idx}.txt`, `원인 ${idx}`);
     els.causeText.textContent = txt;
-    if (els.causeDrawBtn) {
-      // 첫 뽑기 후 버튼이 사진을 가리지 않도록 제거
-      els.causeDrawBtn.style.display = 'none';
-    }
+    if (els.causeDrawBtn) els.causeDrawBtn.style.display = 'none';
   }
 
   async function drawEffect() {
-    const idx = effectIndices[randInt(0, effectIndices.length - 1)];
-    const imgPath = `${IMG_DIR}/effect_${idx}.png`;
+    const idx = causeIndices[randInt(0, causeIndices.length - 1)];
+    const imgPath = `${IMG_DIR}/cause_${idx}.png`;
     els.effectImg.src = imgPath;
     els.effectImg.alt = `결과 ${idx}`;
-    const txt = await loadTextOrFallback(`${IMG_DIR}/effect_${idx}.txt`, `결과 ${idx}`);
+    const txt = await loadTextOrFallback(`${IMG_DIR}/cause_${idx}.txt`, `결과 ${idx}`);
     els.effectText.textContent = txt;
-    if (els.effectDrawBtn) {
-      // 첫 뽑기 후 버튼이 사진을 가리지 않도록 제거
-      els.effectDrawBtn.style.display = 'none';
-    }
+    if (els.effectDrawBtn) els.effectDrawBtn.style.display = 'none';
   }
 
   els.restartBtn.addEventListener('click', () => {
@@ -71,9 +68,10 @@
         if (Array.isArray(data.effect) && data.effect.length) effectIndices = data.effect;
       }
     } catch {}
-    // Wait for user to click buttons
+    // Wait for user interaction
   })();
 
   els.causeDrawBtn?.addEventListener('click', drawCause);
   els.effectDrawBtn?.addEventListener('click', drawEffect);
 })();
+
