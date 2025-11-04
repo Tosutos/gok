@@ -1,0 +1,13 @@
+{
+  "name": "cause-effect-cards",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Elementary school cause/effect card drawing app with number picker.",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

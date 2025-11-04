@@ -1,0 +1,188 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f6f8fb;
+  color: #1f2937;
+}
+
+main#app {
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Desktop-focused layout */
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+h1, h2, h3 { margin: 0 0 12px; }
+
+.range-row {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0 8px;
+}
+.range-row label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; }
+.range-row input {
+  width: 160px;
+  padding: 10px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin: 8px 0 16px; }
+.picked {
+  align-self: center;
+  min-height: 64px;
+  min-width: 240px;
+  padding: 16px 20px;
+  background: #eef2ff;
+  color: #1d4ed8;
+  border: 2px solid #c7d2fe;
+  border-radius: 16px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Big number presentation */
+.big-number {
+  font-size: clamp(28px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(29, 78, 216, 0.15);
+}
+
+/* Pop animation */
+.animate-pop { animation: pop-in 450ms cubic-bezier(.2, .7, .3, 1) both; }
+@keyframes pop-in {
+  0% { transform: scale(.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* Confetti particles */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-fall 900ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -10px, 0) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); opacity: 0; }
+}
+
+/* Container for confetti positioning */
+.confetti-wrap { position: relative; display: inline-block; }
+
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+.primary { background: #2563eb; color: white; }
+.secondary { background: #10b981; color: white; }
+.danger { background: #ef4444; color: white; }
+
+.header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cards {
+  position: relative; /* 중앙 화살표 오버레이용 */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 좌/우 절반 */
+  align-items: stretch;
+  justify-items: stretch;
+  column-gap: 0;
+  row-gap: 0;
+}
+
+.connector {
+  position: absolute; /* 레이아웃에 영향 없이 중앙에 표시 */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connector .arrow {
+  font-size: clamp(32px, 6vw, 72px);
+  color: #6b7280; /* gray-500 */
+  line-height: 1;
+  user-select: none;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  min-width: 0; /* 너무 작아질 때 내용 줄바꿈 허용 */
+}
+
+.image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #f3f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.image-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 0;
+}
+
+.caption {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #eef2ff;
+  color: #1d4ed8;
+  border-radius: 8px;
+  min-height: 44px;
+}
+
+/* Draw buttons overlay (centered) */
+.draw-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 48px;
+  width: 160px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.92);
+  color: #fff;
+  border: none;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, .25);
+  z-index: 2;
+}
+.draw-btn:hover { filter: brightness(1.05); }
+.draw-btn:active { transform: scale(0.98); }
+
+/* 모바일 대응 제거: 데스크탑 고정 레이아웃 */
