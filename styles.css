@@ -163,7 +163,12 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   color: #1d4ed8;
   border-radius: 8px;
   min-height: 44px;
+  font-size: 18px;
+  line-height: 1.4;
 }
+
+/* Slightly larger card titles */
+.card h3 { font-size: 22px; }
 
 /* Draw buttons overlay (centered) */
 .draw-btn {
